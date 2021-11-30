@@ -1,0 +1,35 @@
+
+#1.数据源
+spring:
+  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+    #MySQL配置
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/easybuy_wl0613?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    jackson:
+      time-zone: GMT+8
+      date-format: yyyy-MM-dd HH:mm:ss
+  #3.模板引擎themleaf配置
+  thymeleaf:
+    cache: false
+#2.mybatis-plus
+mybatis-plus:
+  global-config:
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    # Logger Config
+    db-config:
+      id-type: auto
+      capital-mode: true
+    #自定义mapper映射
+  mapper-locations: sqlmapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#4.日志
+logging:
+  level:
+    com.cc.eb: debug
+
