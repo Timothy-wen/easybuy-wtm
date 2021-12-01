@@ -1,6 +1,8 @@
 
 #1.数据源
 spring:
+  freemarker:
+    check-template-location: false
   datasource:
 #    type: com.alibaba.druid.pool.DruidDataSource
     #MySQL配置
