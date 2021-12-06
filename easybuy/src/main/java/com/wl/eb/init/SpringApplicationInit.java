@@ -12,14 +12,10 @@ import java.util.List;
 
 @Component//发暖宝宝的类
 public class SpringApplicationInit implements CommandLineRunner {
-
-    //学校仓库
     @Resource
     private ServletContext application;
-
     @Resource
     private EbProductCategoryMapper ebProductCategoryMapper;
-
     @Override
     public void run(String... args) throws Exception {
         System.out.println("服务器启动就查询所有的分类...");
@@ -31,6 +27,5 @@ public class SpringApplicationInit implements CommandLineRunner {
         application.setAttribute("bigs",bigs);
         application.setAttribute("smalls",smalls);
         System.out.println("加载商品分类成功....");
-
     }
 }

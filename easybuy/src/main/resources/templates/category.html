@@ -10,7 +10,7 @@
     <dl th:each="big: ${application.bigs}">
         <dt th:text="${big.getEpcName()}">图书音像</dt>
         <dd th:each="small:${application.smalls}">
-            <a href="product-list.html"
+            <a th:href="@{/product/list(categoryId=${small.epcId})}"
                th:if="${big.getEpcId() == small.getEpcParentId()}"
                th:text="${small.getEpcName()}"
             >图书</a>
