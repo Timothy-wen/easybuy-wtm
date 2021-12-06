@@ -1,16 +1,17 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8" />
-	<title>易买网 - 首页</title>
-	<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" />
-	<script type="text/javascript" th:src="@{/scripts/function.js}"></script>
-	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-	<script type="text/javascript">
-        $(function(){
-            $("a[disabled='disabled']").removeAttr("href");
-        })
-	</script>
+<meta charset="UTF-8" />
+<title>易买网 - 首页</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" />
+<script type="text/javascript" th:src="@{/scripts/function.js}"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("a[disabled='disabled']").removeAttr("href");
+	})
+
+</script>
 </head>
 <body>
 <div id="header" class="wrap">
@@ -43,21 +44,28 @@
 </div>
 <div id="main" class="wrap">
 	<div class="lefter">
-		<div class="box">
-		  <h2>商品分类</h2>
-			<dl>
-				<dt>图书音像</dt>
-				<dd><a href="product-list.html">图书</a></dd>
-				</dl>
+		<div class="box" th:include="category :: menu">
+			<!--落后写法
+			<h2>商品分类</h2>
+			<dl th:each="big: ${bigs}">
+				<dt th:text="${big.getEpcName()}">图书音像</dt>
+				<dd th:each="small:${smalls}">
+					<a href="product-list.html"
+					   th:if="${big.getEpcId() == small.getEpcParentId()}"
+					   th:text="${small.getEpcName()}"
+					>图书</a>
+				</dd>
+			</dl>
+			-->
 		</div>
 		<div class="spacer"></div>
 		<div class="last-view">
 			<h2>最近浏览</h2>
 			<dl class="clearfix">
-				<dt><img th:src="@{/images/product/dog1.jpg}" /></dt>
-				<dd><a href="product-view.html">这河里吗</a></dd>
-				<dt><img th:src="@{/images/product/dog2.jpg}" /></dt>
-				<dd><a href="product-view.html">这并非河里</a></dd>
+				<dt><img th:src="@{/images/product/0_tiny.gif}" /></dt>
+				<dd><a href="product-view.html">法国德菲丝松露精品巧克力500g/盒</a></dd>
+				<dt><img th:src="@{/images/product/0_tiny.gif}" /></dt>
+				<dd><a href="product-view.html">法国德菲丝松露精品巧克力500g/盒</a></dd>
 			</dl>
 		</div>
 	</div>
@@ -67,48 +75,50 @@
 			<ul class="product clearfix">
 				<li th:each=" product : ${productPage.getRecords()}">
 					<dl>
-						<dt><a href="product-view.html" target="_blank">
-							<img th:src="@{'/images/product/'+${product.getEpFileName()}}" /></a></dt>
+						<dt><a th:href="@{/product/detail(productId=${product.epId})}" target="_blank">
+							<img th:src="@{'/images/product/'+${product.getEpFileName()}}" />
+							</a>
+						</dt>
 						<dd class="title">
-							<a href="product-view.html" target="_blank" th:text="${product.getEpDescription()}">想摸鱼</a></dd>
-						<dd class="price" th:text="${'￥'+product.getEpPrice()}">￥999.9</dd>
+							<a th:href="@{/product/detail(productId=${product.epId})}" target="_blank"
+							   th:text="${product.getEpDescription()}">法国德菲丝松露精品巧克力500g/盒
+							</a>
+						</dd>
+						<dd class="price" th:text="${'￥'+product.getEpPrice()}">￥108.0</dd>
 					</dl>
 				</li>
+
 			</ul>
 
 			<div class="pager">
 				<ul class="clearfix">
-					<li><a href="#">上一页</a></li>
-					<li class="current">1</li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li>
-						<a
-							th:disabled="${productPage.getCurrent()==productPage.getPages()?'true':'false'}"
-							th:style="${productPage.getCurrent()==productPage.getPages()?'cursor:no-drop;text-decoration: none':'auto'}"
-							th:href="@{/index/index(page=${productPage.getCurrent()<productPage.getPages()?productPage.getCurrent()+1:productPage.getCurrent()})}"
-						>
-							下一页
-						</a>
+					<li><a th:disabled="${productPage.getCurrent()==1?'true':'false'}"
+						   th:style="${productPage.getCurrent()==1?'cursor:no-drop;text-decoration: none':'auto'}"
+						   th:href="@{/index/index(page=${productPage.getCurrent()>1?productPage.getCurrent()-1:1})}"
+						>上一页</a></li>
+					<li   th:class='${num==productPage.getCurrent()?"current":""}'
+						th:each="num : ${#numbers.sequence(1,productPage.getPages())}"  >
+							<a th:href="@{/index/index(page=${num})}" th:text="${num}">1</a>
 					</li>
+					<li><a th:disabled="${productPage.getCurrent()==productPage.getPages()?'true':'false'}"
+							th:style="${productPage.getCurrent()==productPage.getPages()?'cursor:no-drop;text-decoration: none':'auto'}"
+						   th:href="@{/index/index(page=${productPage.getCurrent()<productPage.getPages()?productPage.getCurrent()+1:productPage.getCurrent()})}"
+							>下一页</a></li>
+					<li th:text="${'共'+productPage.getPages()+'页'}"></li>
 				</ul>
 			</div>
-
+            
 		</div>
   <div class="side">
 			<div class="spacer"></div>
 			<div class="news-list">
 				<h4>新闻动态</h4>
 				<ul>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
-					<li><a href="news-view.html" target="_blank">抢钱啦</a></li>
+					<li th:each="news : ${newsPage.getRecords()}">
+						<a href="news-view.html" target="_blank"
+						   th:text="${news.getEnTitle()}">抢钱啦</a>
+					</li>
+
 				</ul>
 
 			</div>

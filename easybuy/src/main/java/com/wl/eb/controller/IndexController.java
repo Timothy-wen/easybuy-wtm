@@ -27,7 +27,9 @@ public class IndexController {
         System.out.println("====result:==="+result);
         //数据装入model
         model.addAttribute("productPage", (Page)result.get("ebProductPage"));
-
+        model.addAttribute("newsPage",(Page)result.get("ebNewsPage"));
+        //model.addAttribute("bigs",result.get("bigs"));
+        //model.addAttribute("smalls",result.get("smalls"));
         //返回view
         return "index";
     }

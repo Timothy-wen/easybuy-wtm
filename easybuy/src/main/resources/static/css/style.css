@@ -53,7 +53,7 @@ a:hover, a:active { color:#3a52a8; text-decoration:underline; }
 .pager { margin-top:15px; }
 .pager ul { float:right; }
 .pager ul li { float:left; border:1px solid #eee; line-height:18px; padding:0 3px; margin:0 1px; display:inline; }
-.pager ul li.current { font-weight:bold; color:#630; }
+.pager ul li.current { font-weight:bold; color:red; }
 
 .search { text-align:right; }
 .search input.text { width:150px; border:1px solid #ccc; padding:2px; }

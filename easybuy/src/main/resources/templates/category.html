@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div   th:fragment="menu">
+    <h2>商品分类</h2>
+    <dl th:each="big: ${application.bigs}">
+        <dt th:text="${big.getEpcName()}">图书音像</dt>
+        <dd th:each="small:${application.smalls}">
+            <a href="product-list.html"
+               th:if="${big.getEpcId() == small.getEpcParentId()}"
+               th:text="${small.getEpcName()}"
+            >图书</a>
+        </dd>
+
+    </dl>
+</div>
+
+</body>
+</html>

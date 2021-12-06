@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wl.eb.mapper.EbProductCategoryMapper">
+    <!--List<EbProductCategory> selectBigsCategory();-->
+    <select id="selectBigsCategory" resultType="com.wl.eb.module.EbProductCategory">
+        select * from eb_product_category
+        where epc_id=epc_parent_id
+    </select>
+
+    <!--List<EbProductCategory> selectSmallsCategory();-->
+    <select id="selectSmallsCategory" resultType="com.wl.eb.module.EbProductCategory">
+        select * from eb_product_category
+        where epc_id!=epc_parent_id
+    </select>
+</mapper>
